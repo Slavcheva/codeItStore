@@ -1,6 +1,9 @@
 # codeItStore
-Frontend test task
+Frontend task
 
-To start the project, you sould run in the project directory:
+To start the project you can use HTTP server.
+In the project directory you sould run:
 #### http server
+
+The project is on http://localhost:8080. 
 
