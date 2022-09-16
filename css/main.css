@@ -26,8 +26,8 @@ main {
     margin: 1em auto;
 }
 
-.wishlist .pr-card:hover {
-
+.wishlist a:hover {
+    color: black;
 }
 
 .wishlist .card-img {
@@ -38,6 +38,7 @@ main {
 .wishlist .card-img:before {
     display: block;
     content: '';
+    overflow: hidden;
     padding-top: 100%;
 }
 
@@ -49,17 +50,9 @@ main {
     position: absolute;
     bottom: 10px;
     left: 47.5%;
+    overflow: hidden;
 }
 
-.wishlist .card-img:after {
-    content: '';
-    width: 5%;
-    height: 2px;
-    background: #d30909;
-    position: absolute;
-    bottom: 0;
-    left: 47.5%;
-}
 
 .wishlist .card-img img {
     display: block;
@@ -67,11 +60,12 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    overflow: hidden;
+
 }
 
 .wishlist .card-info {
-    padding: 1em;
-    margin: 1em;
+    padding: 2em;
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
@@ -88,21 +82,17 @@ main {
 .wishlist .pr-card .card-btn {
     width: 3em;
     height: 3em;
-    border: 1px solid #ced4da;
+    border: 1px solid #DCDCDC;
     border-radius: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     background: white;
+    z-index: 1;
 }
 
-
-#board li > a {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+#board .pr-card .card-img{
+    position: relative;
 }
 
 #board .overlay {
@@ -110,22 +100,30 @@ main {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
     overflow: hidden;
     width: 100%;
     height: 100%;
     transform: scale(0);
-    transition: 0.3s ease;
-}
-
-#board a:hover .overlay {
-    transform: scale(1);
-}
-
-.overlay {
+    /*transition: 0.1s ease;*/
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#board .card-img:hover .overlay {
+    transform: scale(1);
+}
+
+#board .card-img:hover ~ div{
+    /*transition: 0.1s ease;*/
+    background: #F6F6F6;
+}
+#board .card-img:hover ~ div>button{
+    /*transition: 0.1s ease;*/
+    background: #d30909;
+    border: 1px solid #F6F6F6;
+    color: #F6F6F6;
 }
 
 .remove-btn {

@@ -8,7 +8,6 @@ window.addEventListener('load', () => {
     loadProducts();
 })
 
-
 const appendPageNumber = (index) => {
     const pageNumber = document.createElement("button");
     pageNumber.className = "pagination-number";
@@ -60,9 +59,7 @@ const setCurrentPage = (pageNum, products) => {
 
 };
 
-
-
-function renderProducts(products) {
+const renderProducts = (products) => {
     let searchInput = document.getElementById('searchBar');
 
     searchInput = (searchInput.value).toLowerCase();
@@ -83,7 +80,7 @@ function renderProducts(products) {
     });
 }
 
-function loadProducts() {
+const loadProducts = () => {
     fetch("./db/phonesData.json")
         .then(res => res.json())
         .then(res => {
@@ -91,16 +88,16 @@ function loadProducts() {
         })
 }
 
-function searchProducts() {
+const searchProducts = () => {
 
     clearBtn.disabled = false;
-    paginationNumbers.innerHTML=''
+    paginationNumbers.innerHTML = ''
 
     loadProducts();
 
 }
 
-function clearSearch() {
+const clearSearch = () => {
 
     let searchInput = document.getElementById('searchBar');
     searchInput.value = '';
@@ -111,24 +108,23 @@ function clearSearch() {
     clearBtn.disabled = true;
 }
 
-function createProduct(product) {
+const createProduct = (product) => {
     const productCard = `
         <div class="pr-card">
-            <a href="#" >
-                <div class="card-img">
+            <a href="#">
+                <div class="card-img" onmouseover="hoverFn(event)">
                     <img src="${product.image}" alt="${product.name}"/>
+                    <div class="overlay"><button class="remove-btn" onclick="removeItem(event)" >REMOVE FROM LIST</button></div>
                 </div>
                 <div class="card-info">
                     <div class="product-name">${product.name}</div>
                     <div class="product-price">$${product.mainPrice}</div>
                 </div>
-                <div class="btn-group d-flex justify-content-center" role="group">
+                <div class="btn-group d-flex justify-content-center">
                     <button class="card-btn cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
                     <button class="card-btn del-btn" onclick="removeItem(event)"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
-                <div class="overlay"><button class="remove-btn" onclick="removeItem(event)" >REMOVE FROM LIST</button></div>
-
-            </a>
+            </a>    
         </div>
 `;
 
@@ -141,10 +137,13 @@ function createProduct(product) {
 
     return productItem;
 }
+const hoverFn = (event) => {
 
-function removeItem(event) {
-    console.log(event.target.offsetParent);
-    console.log(event.target.parentElement.parentElement.parentElement);
-    event.target.parentElement.parentElement.parentElement.parentElement.remove();
+}
+
+const removeItem = (event) => {
+    event.preventDefault()
+    event.target.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+
 }
 
