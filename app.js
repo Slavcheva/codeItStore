@@ -1,48 +1,114 @@
-window.addEventListener('load', () => {
+const paginationNumbers = document.getElementById("pagination-numbers");
+const clearBtn = document.querySelector('.clear-btn');
 
-    fetch("./db/phonesData.json")
-        .then(res => res.json())
-        .then(res => {
-            renderProducts(Object.values(res)[0])
-        })
+const paginationLimit = 8;
+let currentPage = 1;
+
+window.addEventListener('load', () => {
+    loadProducts();
 })
 
-function renderProducts(products) {
-    let input = document.getElementById('searchBar').value
-    input = input.toLowerCase();
+
+const appendPageNumber = (index) => {
+    const pageNumber = document.createElement("button");
+    pageNumber.className = "pagination-number";
+    pageNumber.innerHTML = index;
+    pageNumber.setAttribute("page-index", index);
+    pageNumber.setAttribute("aria-label", "Page " + index);
+
+    paginationNumbers.appendChild(pageNumber);
+};
+
+const getPaginationNumbers = (products) => {
+    const pageCount = Math.ceil(products.length / paginationLimit);
+
+    for (let i = 1; i <= pageCount; i++) {
+        appendPageNumber(i);
+    }
+};
+
+const handleActivePageNumber = () => {
+
+    document.querySelectorAll(".pagination-number").forEach((button) => {
+        button.classList.remove("active");
+
+        const pageIndex = Number(button.getAttribute("page-index"));
+        if (pageIndex == currentPage) {
+            button.classList.add("active");
+        }
+    });
+};
+
+const setCurrentPage = (pageNum, products) => {
+
+    currentPage = pageNum;
+
+    handleActivePageNumber();
+
+    const prevRange = (pageNum - 1) * paginationLimit;
+    const currRange = pageNum * paginationLimit;
 
     const board = document.querySelector('#board');
     board.innerHTML = '';
 
-    products.filter(e => e.name.toLowerCase().includes(input))
-        .forEach(product => {
+    products.forEach((product, index) => {
+        // product.classList.add("hidden");
+        if (index >= prevRange && index < currRange) {
             board.appendChild(createProduct(product));
-        });
+        }
+    });
+
+};
+
+
+
+function renderProducts(products) {
+    let searchInput = document.getElementById('searchBar');
+
+    searchInput = (searchInput.value).toLowerCase();
+
+
+    products = products.filter(e => e.name.toLowerCase().includes(searchInput));
+
+    getPaginationNumbers(products);
+    setCurrentPage(1, products)
+    document.querySelectorAll(".pagination-number").forEach((button) => {
+        const pageIndex = Number(button.getAttribute("page-index"));
+
+        if (pageIndex) {
+            button.addEventListener("click", () => {
+                setCurrentPage(pageIndex, products);
+            });
+        }
+    });
 }
 
-function searchProducts() {
-    
-    let clearBtn = document.querySelector('.clear-btn');
-    clearBtn.disabled = false;
-
+function loadProducts() {
     fetch("./db/phonesData.json")
         .then(res => res.json())
         .then(res => {
-            renderProducts(Object.values(res)[0])
+            renderProducts(Object.values(res)[0]);
         })
+}
+
+function searchProducts() {
+
+    clearBtn.disabled = false;
+    paginationNumbers.innerHTML=''
+
+    loadProducts();
+
 }
 
 function clearSearch() {
 
-    let input = document.getElementById('searchBar');
-    input.value = '';
+    let searchInput = document.getElementById('searchBar');
+    searchInput.value = '';
 
     searchProducts();
 
     let clearBtn = document.querySelector('.clear-btn');
     clearBtn.disabled = true;
-
-
 }
 
 function createProduct(product) {

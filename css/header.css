@@ -22,7 +22,7 @@
 }
 
 .top-header .navbar .navbar-brand h1 > span {
-    color: #444444;
+    color: #000000;
 }
 
 .top-header .navbar .navbar-brand > span {
@@ -36,7 +36,7 @@
 }
 
 .navbar .navbar-nav .nav-item a {
-    color: #444444;
+    color: #000000;
 }
 
 .navbar .navbar-nav .nav-item.active a {
@@ -48,7 +48,7 @@
 }
 
 .navbar .navbar-cart {
-    border: 1px solid #444444;
+    border: 1px solid #000000;
     padding: 0.5em 1em 0.5em 1em;
     margin: 0 0.5em;
     position: relative;
@@ -72,8 +72,8 @@
 .navbar .navbar-cart .two>span{
     font-size: 0.4em;
     padding: 0.7em 1em;
-    border: 1px solid #444444;
-    background-color: #444444;
+    border: 1px solid #000000;
+    background-color: #000000;
     color: white;
     border-radius: 50%;
     font-weight: bold;
@@ -91,7 +91,7 @@
 
 .page-header h2, a {
     font-weight: bold;
-    color: #444444;
+    color: #000000;
     margin: 0;
     padding: 0;
 }
